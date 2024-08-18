@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Copyright 2023 shadow3aaa@gitbub.com
+# Copyright 2024 shadow3aaa@gitbub.com
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,7 +15,12 @@
 # limitations under the License.
 SHDIR="$(dirname $(readlink -f "$0"))"
 
+set -e
 cd $SHDIR
+
+cargo ndk -t arm64-v8a build -r -Z build-std
+cp -f target/aarch64-linux-android/release/cpu-limiter-rs module/cpu-limiter-rs
+
 rm -rf output/.temp
 mkdir -p output/.temp
 cp -r module/* output/.temp/

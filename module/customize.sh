@@ -1,6 +1,6 @@
 #!/system/bin/sh
 #
-# Copyright 2023 shadow3aaa@gitbub.com
+# Copyright 2024 shadow3aaa@gitbub.com
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -22,8 +22,3 @@ local_print() {
 		ui_print "$2"
 	fi
 }
-
-if [ "$(getprop fas-rs-installed)" = "" ]; then
-	local_print "请先安装fas-rs再安装此插件" "Please install fas-rs first"
-	abort
-fi
