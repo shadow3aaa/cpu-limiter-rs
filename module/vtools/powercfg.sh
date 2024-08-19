@@ -1,10 +1,9 @@
 #!/system/bin/sh
-#
 # Copyright 2024 shadow3aaa@gitbub.com
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
-#  You may obtain a copy of the License at
+# You may obtain a copy of the License at
 #
 #     http://www.apache.org/licenses/LICENSE-2.0
 #
@@ -13,19 +12,12 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-MODDIR=${0%/*}
-EXTENSIONS=/dev/fas_rs/extensions
 
-until [ -d "/data/adb" ]; do
-	sleep 1s
-done
+mode=/data/adb/cpulimiter_rs/mode
 
-killall cpu-limiter-rs
-nohup $MODDIR/cpu-limiter-rs 2>&1 >/dev/null &
-
-until [ -d $EXTENSIONS ]; do
-	sleep 1s
-done
-
-id=$(awk -F= '/id/ {print $2}' $MODDIR/module.prop)
-cp -f $MODDIR/main.lua $EXTENSIONS/${id}.lua
+case "$1" in
+"init" | "fast" | "pedestal") echo fast >$mode ;;
+"powersave" | "standby") echo powersave >$mode ;;
+"balance") echo balance >$mode ;;
+"performance") echo performance >$mode ;;
+esac

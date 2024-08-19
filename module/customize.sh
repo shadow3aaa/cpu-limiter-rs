@@ -22,3 +22,17 @@ local_print() {
 		ui_print "$2"
 	fi
 }
+
+mkdir "/data/adb/cpulimiter_rs"
+if [ ! -f "/data/adb/cpulimiter_rs/config.toml" ]; then
+	echo "powersave = 60000
+balance = 75000
+performance = 95000
+fast = 85000" >"/data/adb/cpulimiter_rs/config.toml"
+fi
+
+set_perm "$MODPATH/cpu-limiter-rs" 0 0 0755
+
+if [ "$(getprop fas-rs-installed)" = "" ]; then
+	sh $MODPATH/vtools/init_vtools.sh $(realpath $MODPATH/module.prop)
+fi
